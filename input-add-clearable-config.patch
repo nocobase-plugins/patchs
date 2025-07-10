@@ -1,0 +1,531 @@
+From 6f19eb3f864ddda4a1046a257c080b5ca711413d Mon Sep 17 00:00:00 2001
+From: kerwin612 <kerwin612@qq.com>
+Date: Mon, 26 May 2025 17:43:48 +0800
+Subject: [PATCH 1/5] feat: configuration option "allowClear" to Input
+ component to allow quick clear the content
+
+---
+ packages/core/client/src/locale/de-DE.json    |  1 +
+ packages/core/client/src/locale/en-US.json    |  1 +
+ packages/core/client/src/locale/fr-FR.json    |  1 +
+ packages/core/client/src/locale/it-IT.json    |  1 +
+ packages/core/client/src/locale/ja-JP.json    |  1 +
+ packages/core/client/src/locale/ko-KR.json    |  1 +
+ packages/core/client/src/locale/uk-UA.json    |  1 +
+ packages/core/client/src/locale/zh-CN.json    |  1 +
+ packages/core/client/src/locale/zh-TW.json    |  1 +
+ .../form/fieldSettingsFormItem.tsx            | 30 +++++++++++++++++++
+ .../form/filterFormItemFieldSettings.ts       | 30 +++++++++++++++++++
+ .../src/schema-component/antd/input/Input.tsx |  1 +
+ 12 files changed, 70 insertions(+)
+
+diff --git a/packages/core/client/src/locale/de-DE.json b/packages/core/client/src/locale/de-DE.json
+index 6ba834ee1b119..36a0b40e6b2a4 100644
+--- a/packages/core/client/src/locale/de-DE.json
++++ b/packages/core/client/src/locale/de-DE.json
+@@ -122,6 +122,7 @@
+   "pixels": "Pixel",
+   "Screen size": "Bildschirmgröße",
+   "Display title": "Titel anzeigen",
++  "Allow clear": "Leeren erlauben",
+   "Set the count of columns displayed in a row": "Anzahl der Spalten in einer Zeile festlegen",
+   "Column": "Spalte",
+   "Phone device": "Mobiltelefon",
+diff --git a/packages/core/client/src/locale/en-US.json b/packages/core/client/src/locale/en-US.json
+index e70a39d23f614..b4e349c7ea638 100644
+--- a/packages/core/client/src/locale/en-US.json
++++ b/packages/core/client/src/locale/en-US.json
+@@ -122,6 +122,7 @@
+   "pixels": "pixels",
+   "Screen size": "Screen size",
+   "Display title": "Display title",
++  "Allow clear": "Allow clear",
+   "Set the count of columns displayed in a row": "Set the count of columns displayed in a row",
+   "Column": "Column",
+   "Phone device": "Phone device",
+diff --git a/packages/core/client/src/locale/fr-FR.json b/packages/core/client/src/locale/fr-FR.json
+index ed716f81fee57..bee3bbf320b43 100644
+--- a/packages/core/client/src/locale/fr-FR.json
++++ b/packages/core/client/src/locale/fr-FR.json
+@@ -117,6 +117,7 @@
+   "pixels": "pixels",
+   "Screen size": "Taille de l'écran",
+   "Display title": "Titre d'affichage",
++  "Allow clear": "Autoriser le nettoyage",
+   "Set the count of columns displayed in a row": "Définir le nombre de colonnes affichées par ligne",
+   "Column": "Colonne",
+   "Phone device": "Smartphone",
+diff --git a/packages/core/client/src/locale/it-IT.json b/packages/core/client/src/locale/it-IT.json
+index 74b1d739f8f6a..7d24bf1ac55e5 100644
+--- a/packages/core/client/src/locale/it-IT.json
++++ b/packages/core/client/src/locale/it-IT.json
+@@ -121,6 +121,7 @@
+   "pixels": "pixel",
+   "Screen size": "Dimensione dello schermo",
+   "Display title": "Visualizza titolo",
++  "Allow clear": "Consenti pulizia",
+   "Set the count of columns displayed in a row": "Imposta conteggio delle colonne visualizzate in una riga",
+   "Column": "Colonna",
+   "Phone device": "Telefono",
+diff --git a/packages/core/client/src/locale/ja-JP.json b/packages/core/client/src/locale/ja-JP.json
+index a90eba9463621..938b4f446f67c 100644
+--- a/packages/core/client/src/locale/ja-JP.json
++++ b/packages/core/client/src/locale/ja-JP.json
+@@ -718,6 +718,7 @@
+   "pixels": "ピクセル",
+   "Screen size": "スクリーンサイズ",
+   "Display title": "タイトルを表示",
++  "Allow clear": "クリアを許可",
+   "Set the count of columns displayed in a row": "列の数を設定",
+   "Column": "カラム",
+   "Phone device": "携帯デバイス",
+diff --git a/packages/core/client/src/locale/ko-KR.json b/packages/core/client/src/locale/ko-KR.json
+index 8294df8e6beb2..d017b30dec82c 100644
+--- a/packages/core/client/src/locale/ko-KR.json
++++ b/packages/core/client/src/locale/ko-KR.json
+@@ -140,6 +140,7 @@
+   "Screen size": "화면 크기",
+   "pixels": "픽셀",
+   "Display title": "표시 제목",
++  "Allow clear": "클리어 허용",
+   "Set the count of columns displayed in a row": "한 행에 표시되는 열 수 설정",
+   "Column": "열",
+   "Phone device": "휴대폰 기기",
+diff --git a/packages/core/client/src/locale/uk-UA.json b/packages/core/client/src/locale/uk-UA.json
+index 19f6c8dcd903b..2b8e05ee9ade6 100644
+--- a/packages/core/client/src/locale/uk-UA.json
++++ b/packages/core/client/src/locale/uk-UA.json
+@@ -117,6 +117,7 @@
+   "pixels": "пікселів",
+   "Screen size": "Розмір екрану",
+   "Display title": "Заголовок відображення",
++  "Allow clear": "Дозволити очищення",
+   "Set the count of columns displayed in a row": "Встановити кількість стовпців, відображених у рядку",
+   "Column": "Стовпець",
+   "Phone device": "Пристрій для телефона",
+diff --git a/packages/core/client/src/locale/zh-CN.json b/packages/core/client/src/locale/zh-CN.json
+index a2e99fbf65f07..e688c4bf95de0 100644
+--- a/packages/core/client/src/locale/zh-CN.json
++++ b/packages/core/client/src/locale/zh-CN.json
+@@ -140,6 +140,7 @@
+   "Screen size": "屏幕尺寸",
+   "pixels": "像素",
+   "Display title": "显示标题",
++  "Allow clear": "允许清空",
+   "Set the count of columns displayed in a row": "设置一行展示的列数",
+   "Column": "列",
+   "Phone device": "手机设备",
+diff --git a/packages/core/client/src/locale/zh-TW.json b/packages/core/client/src/locale/zh-TW.json
+index 1d5fec8a4016d..900261f74d420 100644
+--- a/packages/core/client/src/locale/zh-TW.json
++++ b/packages/core/client/src/locale/zh-TW.json
+@@ -140,6 +140,7 @@
+   "Screen size": "螢幕尺寸",
+   "pixels": "畫素",
+   "Display title": "顯示標題",
++  "Allow clear": "允許清空",
+   "Set the count of columns displayed in a row": "設定一行展示的列數",
+   "Column": "列",
+   "Phone device": "手機裝置",
+diff --git a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+index f29bb29974258..fec8bfab1c83a 100644
+--- a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
++++ b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+@@ -121,6 +121,36 @@ export const fieldSettingsFormItem = new SchemaSettings({
+               };
+             },
+           },
++          {
++            name: 'allowClear',
++            type: 'switch',
++            useComponentProps() {
++              const { t } = useTranslation();
++              const { dn } = useDesignable();
++              const field = useField<Field>();
++              const fieldSchema = useFieldSchema();
++
++              return {
++                title: t('Allow clear'),
++                checked: fieldSchema['x-component-props']?.['allowClear'] ?? false,
++                onChange(checked) {
++                  fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
++                  fieldSchema['x-component-props']['allowClear'] = checked;
++                  field.componentProps.allowClear = checked;
++                  dn.emit('patch', {
++                    schema: {
++                      'x-uid': fieldSchema['x-uid'],
++                      'x-component-props': {
++                        ...fieldSchema['x-component-props'],
++                        allowClear: checked,
++                      },
++                    },
++                  });
++                  dn.refresh();
++                },
++              };
++            },
++          },
+           {
+             name: 'editDescription',
+             type: 'modal',
+diff --git a/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts b/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
+index 755f21e49498c..a5a0375143c36 100644
+--- a/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
++++ b/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
+@@ -121,6 +121,36 @@ export const filterFormItemFieldSettings = new SchemaSettings({
+               };
+             },
+           },
++          {
++            name: 'allowClear',
++            type: 'switch',
++            useComponentProps() {
++              const { t } = useTranslation();
++              const { dn } = useDesignable();
++              const field = useField<Field>();
++              const fieldSchema = useFieldSchema();
++
++              return {
++                title: t('Allow clear'),
++                checked: fieldSchema['x-component-props']?.['allowClear'] ?? false,
++                onChange(checked) {
++                  fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
++                  fieldSchema['x-component-props']['allowClear'] = checked;
++                  field.componentProps.allowClear = checked;
++                  dn.emit('patch', {
++                    schema: {
++                      'x-uid': fieldSchema['x-uid'],
++                      'x-component-props': {
++                        ...fieldSchema['x-component-props'],
++                        allowClear: checked,
++                      },
++                    },
++                  });
++                  dn.refresh();
++                },
++              };
++            },
++          },
+           {
+             name: 'editDescription',
+             type: 'modal',
+diff --git a/packages/core/client/src/schema-component/antd/input/Input.tsx b/packages/core/client/src/schema-component/antd/input/Input.tsx
+index 537d7bb95a163..3f56f051797ff 100644
+--- a/packages/core/client/src/schema-component/antd/input/Input.tsx
++++ b/packages/core/client/src/schema-component/antd/input/Input.tsx
+@@ -26,6 +26,7 @@ type ComposedInput = React.FC<NocoBaseInputProps> & {
+ 
+ export type NocoBaseInputProps = InputProps & {
+   trim?: boolean;
++  allowClear?: boolean;
+ };
+ 
+ function InputInner(props: NocoBaseInputProps) {
+
+From 6b2f0123d31b21833e7a556915c14faf6782f6df Mon Sep 17 00:00:00 2001
+From: Kerwin Bryant <kerwin612@qq.com>
+Date: Tue, 27 May 2025 20:22:01 +0800
+Subject: [PATCH 2/5] Update fieldSettingsFormItem.tsx
+
+---
+ .../modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx    | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+index fec8bfab1c83a..c5168a55974a2 100644
+--- a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
++++ b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+@@ -146,7 +146,6 @@ export const fieldSettingsFormItem = new SchemaSettings({
+                       },
+                     },
+                   });
+-                  dn.refresh();
+                 },
+               };
+             },
+
+From 6122d71651635d3ad2b75dd81e025b624e9fcef4 Mon Sep 17 00:00:00 2001
+From: kerwin612 <kerwin612@qq.com>
+Date: Tue, 27 May 2025 21:23:34 +0800
+Subject: [PATCH 3/5] fix: current only support for Input
+
+---
+ .../blocks/data-blocks/form/fieldSettingsFormItem.tsx      | 6 ++++++
+ .../filter-blocks/form/filterFormItemFieldSettings.ts      | 7 +++++++
+ 2 files changed, 13 insertions(+)
+
+diff --git a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+index fec8bfab1c83a..c48e01c6d562b 100644
+--- a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
++++ b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+@@ -124,6 +124,12 @@ export const fieldSettingsFormItem = new SchemaSettings({
+           {
+             name: 'allowClear',
+             type: 'switch',
++            useVisible() {
++              const collection = useCollection();
++              const fieldSchema = useFieldSchema();
++              const fieldComponent = collection.getField(fieldSchema['name'])?.uiSchema?.['x-component'] ?? '';
++              return fieldComponent && ['Input', 'TextArea', 'JSON', 'URL', 'Password'].indexOf(fieldComponent) > -1;
++            },
+             useComponentProps() {
+               const { t } = useTranslation();
+               const { dn } = useDesignable();
+diff --git a/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts b/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
+index a5a0375143c36..2a87580fcf640 100644
+--- a/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
++++ b/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
+@@ -13,6 +13,7 @@ import { ISchema, useField, useFieldSchema } from '@formily/react';
+ import _ from 'lodash';
+ import { useTranslation } from 'react-i18next';
+ import { useApp } from '../../../../application';
++import { useCollection } from '../../../../data-source';
+ import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
+ import { useCollectionManager_deprecated, useCollection_deprecated } from '../../../../collection-manager';
+ import { useFieldComponentName } from '../../../../common/useFieldComponentName';
+@@ -124,6 +125,12 @@ export const filterFormItemFieldSettings = new SchemaSettings({
+           {
+             name: 'allowClear',
+             type: 'switch',
++            useVisible() {
++              const collection = useCollection();
++              const fieldSchema = useFieldSchema();
++              const fieldComponent = collection.getField(fieldSchema['name'])?.uiSchema?.['x-component'] ?? '';
++              return fieldComponent && ['Input', 'TextArea', 'JSON', 'URL', 'Password'].indexOf(fieldComponent) > -1;
++            },
+             useComponentProps() {
+               const { t } = useTranslation();
+               const { dn } = useDesignable();
+
+From 530f7e5e05d30622d63c04ab37d0febb2bd5193a Mon Sep 17 00:00:00 2001
+From: kerwin612 <kerwin612@qq.com>
+Date: Wed, 28 May 2025 10:17:39 +0800
+Subject: [PATCH 4/5] fix: add edit required
+
+---
+ .../blocks/data-blocks/form/fieldSettingsFormItem.tsx      | 7 ++++++-
+ .../filter-blocks/form/filterFormItemFieldSettings.ts      | 7 ++++++-
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+index 878eb77e63fca..cd2c562ce50d1 100644
+--- a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
++++ b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+@@ -127,8 +127,13 @@ export const fieldSettingsFormItem = new SchemaSettings({
+             useVisible() {
+               const collection = useCollection();
+               const fieldSchema = useFieldSchema();
++              const { editable = false } = useField<Field>();
+               const fieldComponent = collection.getField(fieldSchema['name'])?.uiSchema?.['x-component'] ?? '';
+-              return fieldComponent && ['Input', 'TextArea', 'JSON', 'URL', 'Password'].indexOf(fieldComponent) > -1;
++              return (
++                editable &&
++                fieldComponent &&
++                ['Input', 'TextArea', 'JSON', 'URL', 'Password'].indexOf(fieldComponent) > -1
++              );
+             },
+             useComponentProps() {
+               const { t } = useTranslation();
+diff --git a/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts b/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
+index 2a87580fcf640..778de56240227 100644
+--- a/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
++++ b/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
+@@ -128,8 +128,13 @@ export const filterFormItemFieldSettings = new SchemaSettings({
+             useVisible() {
+               const collection = useCollection();
+               const fieldSchema = useFieldSchema();
++              const { editable = false } = useField<Field>();
+               const fieldComponent = collection.getField(fieldSchema['name'])?.uiSchema?.['x-component'] ?? '';
+-              return fieldComponent && ['Input', 'TextArea', 'JSON', 'URL', 'Password'].indexOf(fieldComponent) > -1;
++              return (
++                editable &&
++                fieldComponent &&
++                ['Input', 'TextArea', 'JSON', 'URL', 'Password'].indexOf(fieldComponent) > -1
++              );
+             },
+             useComponentProps() {
+               const { t } = useTranslation();
+
+From f18453e00defcc5667ae518326d975dbbd8c6779 Mon Sep 17 00:00:00 2001
+From: kerwin612 <kerwin612@qq.com>
+Date: Fri, 30 May 2025 11:44:02 +0800
+Subject: [PATCH 5/5] fix: clean code
+
+---
+ .../form/fieldSettingsFormItem.tsx            | 40 -----------------
+ .../form/filterFormItemFieldSettings.ts       | 42 ------------------
+ .../Input/inputComponentSettings.tsx          | 43 ++++++++++++++++++-
+ 3 files changed, 41 insertions(+), 84 deletions(-)
+
+diff --git a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+index cd2c562ce50d1..f29bb29974258 100644
+--- a/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
++++ b/packages/core/client/src/modules/blocks/data-blocks/form/fieldSettingsFormItem.tsx
+@@ -121,46 +121,6 @@ export const fieldSettingsFormItem = new SchemaSettings({
+               };
+             },
+           },
+-          {
+-            name: 'allowClear',
+-            type: 'switch',
+-            useVisible() {
+-              const collection = useCollection();
+-              const fieldSchema = useFieldSchema();
+-              const { editable = false } = useField<Field>();
+-              const fieldComponent = collection.getField(fieldSchema['name'])?.uiSchema?.['x-component'] ?? '';
+-              return (
+-                editable &&
+-                fieldComponent &&
+-                ['Input', 'TextArea', 'JSON', 'URL', 'Password'].indexOf(fieldComponent) > -1
+-              );
+-            },
+-            useComponentProps() {
+-              const { t } = useTranslation();
+-              const { dn } = useDesignable();
+-              const field = useField<Field>();
+-              const fieldSchema = useFieldSchema();
+-
+-              return {
+-                title: t('Allow clear'),
+-                checked: fieldSchema['x-component-props']?.['allowClear'] ?? false,
+-                onChange(checked) {
+-                  fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+-                  fieldSchema['x-component-props']['allowClear'] = checked;
+-                  field.componentProps.allowClear = checked;
+-                  dn.emit('patch', {
+-                    schema: {
+-                      'x-uid': fieldSchema['x-uid'],
+-                      'x-component-props': {
+-                        ...fieldSchema['x-component-props'],
+-                        allowClear: checked,
+-                      },
+-                    },
+-                  });
+-                },
+-              };
+-            },
+-          },
+           {
+             name: 'editDescription',
+             type: 'modal',
+diff --git a/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts b/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
+index 778de56240227..755f21e49498c 100644
+--- a/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
++++ b/packages/core/client/src/modules/blocks/filter-blocks/form/filterFormItemFieldSettings.ts
+@@ -13,7 +13,6 @@ import { ISchema, useField, useFieldSchema } from '@formily/react';
+ import _ from 'lodash';
+ import { useTranslation } from 'react-i18next';
+ import { useApp } from '../../../../application';
+-import { useCollection } from '../../../../data-source';
+ import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
+ import { useCollectionManager_deprecated, useCollection_deprecated } from '../../../../collection-manager';
+ import { useFieldComponentName } from '../../../../common/useFieldComponentName';
+@@ -122,47 +121,6 @@ export const filterFormItemFieldSettings = new SchemaSettings({
+               };
+             },
+           },
+-          {
+-            name: 'allowClear',
+-            type: 'switch',
+-            useVisible() {
+-              const collection = useCollection();
+-              const fieldSchema = useFieldSchema();
+-              const { editable = false } = useField<Field>();
+-              const fieldComponent = collection.getField(fieldSchema['name'])?.uiSchema?.['x-component'] ?? '';
+-              return (
+-                editable &&
+-                fieldComponent &&
+-                ['Input', 'TextArea', 'JSON', 'URL', 'Password'].indexOf(fieldComponent) > -1
+-              );
+-            },
+-            useComponentProps() {
+-              const { t } = useTranslation();
+-              const { dn } = useDesignable();
+-              const field = useField<Field>();
+-              const fieldSchema = useFieldSchema();
+-
+-              return {
+-                title: t('Allow clear'),
+-                checked: fieldSchema['x-component-props']?.['allowClear'] ?? false,
+-                onChange(checked) {
+-                  fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+-                  fieldSchema['x-component-props']['allowClear'] = checked;
+-                  field.componentProps.allowClear = checked;
+-                  dn.emit('patch', {
+-                    schema: {
+-                      'x-uid': fieldSchema['x-uid'],
+-                      'x-component-props': {
+-                        ...fieldSchema['x-component-props'],
+-                        allowClear: checked,
+-                      },
+-                    },
+-                  });
+-                  dn.refresh();
+-                },
+-              };
+-            },
+-          },
+           {
+             name: 'editDescription',
+             type: 'modal',
+diff --git a/packages/core/client/src/modules/fields/component/Input/inputComponentSettings.tsx b/packages/core/client/src/modules/fields/component/Input/inputComponentSettings.tsx
+index d86283a3f26f2..baaffdadc64f1 100644
+--- a/packages/core/client/src/modules/fields/component/Input/inputComponentSettings.tsx
++++ b/packages/core/client/src/modules/fields/component/Input/inputComponentSettings.tsx
+@@ -10,7 +10,7 @@
+ import { useField, useFieldSchema } from '@formily/react';
+ import _ from 'lodash';
+ import { useTranslation } from 'react-i18next';
+-import { useBlockContext, useOpenModeContext } from '../../../../';
++import { useBlockContext, useCollection, useOpenModeContext } from '../../../../';
+ import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
+ import { SchemaSettingsItemType } from '../../../../application/schema-settings/types';
+ import {
+@@ -129,7 +129,46 @@ export const openModeSettingsItem: SchemaSettingsItemType = {
+     return (fieldSchema?.['x-read-pretty'] || field.readPretty) && fieldSchema?.['x-component-props']?.enableLink;
+   },
+ };
++
++export const allowClearSettingsItem: SchemaSettingsItemType = {
++  name: 'allowClear',
++  type: 'switch',
++  useVisible() {
++    const collection = useCollection();
++    const fieldSchema = useFieldSchema();
++    const { editable = false } = useField();
++    const fieldComponent = collection.getField(fieldSchema['name'])?.uiSchema?.['x-component'] ?? '';
++    return editable && fieldComponent && ['Input', 'TextArea', 'JSON', 'URL', 'Password'].indexOf(fieldComponent) > -1;
++  },
++  useComponentProps() {
++    const { t } = useTranslation();
++    const { dn } = useDesignable();
++    const field = useField();
++    const fieldSchema = useFieldSchema();
++
++    return {
++      title: t('Allow clear'),
++      checked: fieldSchema['x-component-props']?.['allowClear'] ?? false,
++      onChange(checked) {
++        fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
++        fieldSchema['x-component-props']['allowClear'] = checked;
++        field.componentProps.allowClear = checked;
++        dn.emit('patch', {
++          schema: {
++            'x-uid': fieldSchema['x-uid'],
++            'x-component-props': {
++              ...fieldSchema['x-component-props'],
++              allowClear: checked,
++            },
++          },
++        });
++        dn.refresh();
++      },
++    };
++  },
++};
++
+ export const inputComponentSettings = new SchemaSettings({
+   name: 'fieldSettings:component:Input',
+-  items: [ellipsisSettingsItem, enableLinkSettingsItem, openModeSettingsItem],
++  items: [ellipsisSettingsItem, enableLinkSettingsItem, openModeSettingsItem, allowClearSettingsItem],
+ });
